@@ -4,9 +4,9 @@
 使用
 For single file:
 ```
-rpgmvp2png.exe input.rpgmvp output.png"
+rpgmvp2png.exe input.rpgmvp output.png
 ```
 entire directory: 
 ```
-rpgmvp2png.exe directory_path"
+rpgmvp2png.exe directory_path
 ```
