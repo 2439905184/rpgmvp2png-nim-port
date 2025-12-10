@@ -60,6 +60,12 @@ elif len(args) == 1:
   else:
     echo "Error: Path '" & path & "' does not exist."
 else:
-  echo("Usage:")
-  echo("  For single file:rpgmvp2png.exe input.rpgmvp output.png")
-  echo("  For entire directory: rpgmvp2png.exe directory_path")
+# 编译时检查系统
+  if defined(windows):
+    echo("Usage:")
+    echo("  For single file:rpgmvp2png.exe input.rpgmvp output.png")
+    echo("  For entire directory: rpgmvp2png.exe directory_path")
+  else:
+    echo("Usage:")
+    echo("  For single file:rpgmvp2png.arm input.rpgmvp output.png")
+    echo("  For entire directory: rpgmvp2png.arm directory_path")
