@@ -1,17 +1,17 @@
 import std/os
 import std/strutils
 
-proc decrypt_rpgmvp(input_file: string, output_file: string) = 
-  const pngHeader = "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A\x00\x00\x00\x0D\x49\x48\x44\x52"
-  var f_in = open(input_file, fmRead)
-  var data = f_in.readAll()
-  var f_out = open(output_file, fmWrite)
-  f_out.write(png_header)
-  f_out.write(data[32..^1])
-  f_in.close()
-  f_out.close()
+proc decryptRpgmvp(inputFile: string, outputFile: string) = 
+  const PngHeader = "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A\x00\x00\x00\x0D\x49\x48\x44\x52"
+  var fileIn = open(inputFile, fmRead)
+  var data = fileIn.readAll()
+  var fileOut = open(outputFile, fmWrite)
+  fileOut.write(PngHeader)
+  fileOut.write(data[32..^1])
+  fileIn.close()
+  fileOut.close()
 
-proc decrypt_directory(directory:string) = 
+proc decryptDirectory(directory:string) = 
    # 获取输入目录的基本名称
   let baseDir = splitPath(directory).tail
   # 在当前工作目录下创建同名的输出目录
@@ -42,21 +42,21 @@ proc decrypt_directory(directory:string) =
       # 构建输出文件的完整路径
       let outputFilePath = joinPath(outputPath, extractFilename(outputFile))
       
-      # 调用decrypt_rpgmvp函数解密单个文件]#
+      # 调用decryptRpgmvp函数解密单个文件]#
       decryptRpgmvp(filePath, outputFilePath)
 
 var args = commandLineParams()
 if len(args) == 2:
-  var input_file = args[0]
-  var output_file = args[1]
-  decrypt_rpgmvp(input_file, output_file)
+  var inputFile = args[0]
+  var outputFile = args[1]
+  decryptRpgmvp(inputFile, outputFile)
 elif len(args) == 1:
   var path = args[0]
   if dirExists(path):
     if fileExists(path):
       echo "Error: '" & path & "' is a file, not a directory."
     else:
-      decrypt_directory(path)
+      decryptDirectory(path)
   else:
     echo "Error: Path '" & path & "' does not exist."
 else:
